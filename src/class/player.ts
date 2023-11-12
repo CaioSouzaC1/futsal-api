@@ -109,5 +109,23 @@ class Player {
 
     return { status: 200, message: "Valid parameters!" };
   }
+
+  async getAllPlayers() {
+    try {
+      const players = await this.prisma.player.findMany();
+
+      if (players.length === 0) {
+        return { status: 404, message: "Players not found!" };
+      }
+
+      return {
+        status: 200,
+        message: "All Players selected!",
+        players: players,
+      };
+    } catch (error) {
+      return { status: 500, message: "Internal error. Players not found!" };
+    }
+  }
 }
 export default Player;

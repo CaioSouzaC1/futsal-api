@@ -1,6 +1,7 @@
 import { prismaService } from "./prismaService";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { CreateTeamI } from "@src/interfaces/team";
+import Game from "./game";
 
 class Team {
   private prisma: typeof prismaService;
@@ -52,11 +53,28 @@ class Team {
   async delete(id: string) {
     const idNum = Number(id);
     try {
+      const games = await this.prisma.game.findMany({
+        where: {
+          OR: [{ homeTeamId: idNum }, { visitorTeamId: idNum }],
+        },
+      });
+      if (games.length !== 0) {
+       games.forEach(async (el) => {
+          const game = new Game();
+          await game.delete(String(el.id));
+        });
+      }
+      await this.prisma.player.deleteMany({
+        where: { teamId: idNum },
+      });
+
       const teams = await this.prisma.team.delete({
         where: { id: idNum },
       });
+
       return { status: 200, message: "Team deleted!", teams: teams };
     } catch (error) {
+      console.log(error);
       if (error instanceof PrismaClientKnownRequestError) {
         //Doc: https://www.prisma.io/docs/reference/api-reference/error-reference#error-codes
         if (error.code === "P2025") {

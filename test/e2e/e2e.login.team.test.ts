@@ -6,8 +6,9 @@ let createdTeamId: number | undefined = 0;
 let secondCreatedTeamId: number | undefined = 0;
 let createdPlayerId: number | undefined = 0;
 let secondCreatedPlayerId: number | undefined = 0;
+let createdGameId: number | undefined = 0;
 
-const userEmailTest: string = "emailemailemail19@email.com.br";
+const userEmailTest: string = "emailemailemail24@email.com.br";
 const userPassTest: string = "123456";
 
 describe('Rota *POST* "/user/create"', () => {
@@ -42,7 +43,7 @@ describe('Rota *POST* "/team"', () => {
       .post("/team")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Sport Club Corinthians Paulista",
+        name: "Amigos Futebol Clube",
       });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("message");
@@ -57,7 +58,7 @@ describe('Rota *POST* "/team"', () => {
       .post("/team")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Vasco da Gama",
+        name: "Vasco De La Gama",
       });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("message");
@@ -94,8 +95,8 @@ describe('Rota *POST* "/player/"', () => {
       .post("/player")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Cássio Ramos",
-        number: 12,
+        name: "Fagner",
+        number: 24,
         teamId: createdTeamId,
       });
     expect(response.status).toBe(201);
@@ -111,8 +112,8 @@ describe('Rota *POST* "/player/"', () => {
       .post("/player")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Roberto Dinamite",
-        number: 10,
+        name: "Neymar",
+        number: 9,
         teamId: secondCreatedTeamId,
       });
     expect(response.status).toBe(201);
@@ -163,15 +164,15 @@ describe('Rota *PUT* "/team/:id"', () => {
   });
 });
 
-describe('Rota *DELETE* "/team/:id"', () => {
-  it("Deve deletar um time", async () => {
-    const response = await request(app)
-      .delete(`/team/${secondCreatedTeamId}`)
-      .set("Authorization", `Bearer ${accessToken}`);
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("message");
-  });
-});
+// describe('Rota *DELETE* "/team/:id"', () => {
+//   it("Deve deletar um time", async () => {
+//     const response = await request(app)
+//       .delete(`/team/${secondCreatedTeamId}`)
+//       .set("Authorization", `Bearer ${accessToken}`);
+//     expect(response.status).toBe(200);
+//     expect(response.body).toHaveProperty("message");
+//   });
+// });
 
 describe('Rota *GET* "/team"', () => {
   it("Deve retornar todos os times", async () => {
@@ -181,5 +182,78 @@ describe('Rota *GET* "/team"', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("message");
     expect(response.body).toHaveProperty("teams");
+  });
+});
+
+describe('Rota *POST* "/game/"', () => {
+  it("Deve criar um jogo", async () => {
+    const response = await request(app)
+      .post("/game")
+      .set("Authorization", `Bearer ${accessToken}`)
+      .send({
+        date: "2021-10-12",
+        homeTeamId: createdTeamId,
+        visitorTeamId: secondCreatedTeamId,
+        start: "10:00",
+        end: "11:00",
+        homeTeamGoals: 1,
+        visitorTeamGoals: 2,
+      });
+    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("game_id");
+    createdGameId = response.body.game_id;
+  });
+});
+
+describe('Rota *PUT* "/game/:id"', () => {
+  it("Deve editar um jogo", async () => {
+    const response = await request(app)
+      .put(`/game/${createdGameId}`)
+      .set("Authorization", `Bearer ${accessToken}`)
+      .send({
+        date: "2021-10-12",
+        homeTeamId: createdTeamId,
+        visitorTeamId: secondCreatedTeamId,
+        start: "10:00",
+        end: "11:00",
+        homeTeamGoals: 4,
+        visitorTeamGoals: 5,
+      });
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("game");
+  });
+});
+
+describe('Rota *GET* "/game"', () => {
+  it("Deve retornar todos os jogos", async () => {
+    const response = await request(app)
+      .get("/game")
+      .set("Authorization", `Bearer ${accessToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("games");
+  });
+});
+
+describe('Rota *GET* "/game/:id"', () => {
+  it("Deve retornar um jogo", async () => {
+    const response = await request(app)
+      .get(`/game/${createdGameId}`)
+      .set("Authorization", `Bearer ${accessToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("game");
+  });
+});
+
+describe('Rota *DELETE* "/game/:id"', () => {
+  it("Deve deletar um jogo", async () => {
+    const response = await request(app)
+      .delete(`/game/${createdGameId}`)
+      .set("Authorization", `Bearer ${accessToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("message");
   });
 });

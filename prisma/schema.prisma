@@ -48,11 +48,11 @@ model Player {
 
 model Game {
   id         Int        @id @default(autoincrement())
-  date       DateTime
+  date       String
   homeTeamId Int
   visitorTeamId Int
-  start      DateTime
-  end        DateTime
+  start      String
+  end        String
   homeTeamGoals Int
   visitorTeamGoals Int
 }
