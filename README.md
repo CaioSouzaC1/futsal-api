@@ -14,8 +14,10 @@ Construída com NodeJs & Typescript, orientada a objetos e a testes automatizado
 - Tokens de autenticação com JWT
 - Middleware de autenticação
 - Testes Automatizados
+- Arquivo de log para possíveis erros
 
 ## Rotas:
+Aqui apenas listarei as rotas, todas as informações e como as requisições devem ser feitas estão disponíveis nas configurações do Postman.
 
 ### Rotas de usuário
 
@@ -108,6 +110,9 @@ Dentro da pasta Postman existe um json pronto para ser importado.
 ### 1 - Criação de Usuário
 
 Para começar a usar a API, você precisa criar um usuário. Isso é feito através de uma solicitação POST para a rota de criação de usuário. 
+
+Também está rodando via Postman neste link:
+https://www.postman.com/flight-engineer-19866197/workspace/futsalapi
 
 ### 2 - Login de Usuário
 

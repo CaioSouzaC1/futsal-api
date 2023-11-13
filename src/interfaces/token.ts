@@ -12,3 +12,7 @@ export interface storeTokenResponseI {
   createdAt: Date;
   updatedAt: Date;
 }
+export interface storeFailedTokenResponseI {
+  status: number;
+  message: string;
+}

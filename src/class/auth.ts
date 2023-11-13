@@ -1,9 +1,18 @@
 import { prismaService } from "./prismaService";
 import jwt, { JwtPayload, TokenExpiredError } from "jsonwebtoken";
 import Token from "./token";
+import logger, { getFormattedDateTime } from "../util/logger";
 
 const jwtSecret = process.env.JWT_SECRET || "default_secret";
 
+/**
+ * Auth Class
+ *
+ * This class is responsible for handling authentication and validating access tokens in the application.
+ * It uses Prisma to interact with the database and the jsonwebtoken package to verify the authenticity of tokens.
+ *
+ * @class Auth
+ */
 class Auth {
   private prisma: typeof prismaService;
   private secret: string = jwtSecret;
@@ -26,6 +35,7 @@ class Auth {
 
       throw new Error("Invalid token type");
     } catch (error) {
+      logger.error(getFormattedDateTime(), error);
       if (error instanceof TokenExpiredError) {
         const token = jwt.decode(accessToken) as JwtPayload;
 
@@ -72,7 +82,7 @@ class Auth {
       const token = jwt.verify(refreshToken, this.secret) as JwtPayload;
       return token;
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return null;
     }
   }
@@ -91,7 +101,7 @@ class Auth {
 
       return latestAccessToken;
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return null;
     }
   }
@@ -110,7 +120,7 @@ class Auth {
 
       return latestRefreshToken;
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return null;
     }
   }
@@ -160,7 +170,7 @@ class Auth {
 
       return accessTokenReturn;
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return null;
     }
   }

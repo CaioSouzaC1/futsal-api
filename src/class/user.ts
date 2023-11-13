@@ -8,7 +8,16 @@ import {
   LoginUserI,
   LoginUserResponseI,
 } from "@src/interfaces/user";
+import logger, { getFormattedDateTime } from "../util/logger";
 
+/**
+ * User Class
+ *
+ * This class handles user-related operations, such as user create and authentication.
+ * It uses the Prisma client for database interactions and relies on the Password class for password hashing and comparison.
+ *
+ * @class User
+ */
 class User {
   private prisma: typeof prismaService;
   private pass: Password;
@@ -26,7 +35,6 @@ class User {
       typeof email !== "string" ||
       typeof password !== "string"
     ) {
-      //Doc: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
       return { status: 400, message: "Invalid Parameters sended!" };
     }
 
@@ -42,10 +50,10 @@ class User {
 
       return { status: 201, message: "User created!", user_id: user.id };
     } catch (error) {
+      logger.error(getFormattedDateTime(), error);
       if (error instanceof PrismaClientKnownRequestError) {
         //Doc: https://www.prisma.io/docs/reference/api-reference/error-reference#error-codes
         if (error.code === "P2002") {
-          //Doc: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
           return {
             status: 409,
             message: "Unique key violated : " + error.meta?.target,
@@ -60,7 +68,6 @@ class User {
   async login(params: LoginUserI): Promise<LoginUserResponseI> {
     const { email, password } = params;
     if (typeof email !== "string" || typeof password !== "string") {
-      //Doc: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
       return { status: 400, message: "Invalid Parameters sended!" };
     }
 
@@ -70,7 +77,6 @@ class User {
       });
 
       if (!user) {
-        //Doc: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
         return { status: 404, message: "User not found!" };
       }
 
@@ -88,12 +94,10 @@ class User {
         };
       }
     } catch (error) {
-      console.error(error);
-      // Unknown error
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Unknown error!" };
     }
 
-    //Doc: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
     return { status: 401, message: "User Unauthorized!" };
   }
 }

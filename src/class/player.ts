@@ -6,7 +6,16 @@ import {
   editPlayerResponseI,
 } from "@src/interfaces/player";
 import Team from "./team";
+import logger, { getFormattedDateTime } from "../util/logger";
 
+/**
+ * Player Class
+ *
+ * This class is responsible for managing player-related operations, including create/delete/edit/get players.
+ * It interacts with the Prisma service to store player data in the database.
+ *
+ * @class Player
+ */
 class Player {
   private prisma: typeof prismaService;
 
@@ -35,6 +44,7 @@ class Player {
 
       return { status: 201, message: "Player created!", player_id: player.id };
     } catch (error) {
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Player not created!" };
     }
   }
@@ -47,6 +57,7 @@ class Player {
       });
       return { status: 200, message: "Player deleted!", player: player };
     } catch (error) {
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Player not deleted!" };
     }
   }
@@ -124,6 +135,7 @@ class Player {
         players: players,
       };
     } catch (error) {
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Players not found!" };
     }
   }

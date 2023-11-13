@@ -1,5 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 
+/**
+ * PrismaService Class
+ * 
+ * This class serves as a singleton for managing the Prisma Client instance and providing access to it.
+ * It ensures that only one instance of Prisma Client is created and reused throughout the application.
+ * 
+ * @class PrismaService
+ */
 class PrismaService {
   private static instance: PrismaService;
   private prisma: PrismaClient;

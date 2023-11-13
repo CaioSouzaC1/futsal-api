@@ -8,6 +8,17 @@ import {
 import { prismaService } from "./prismaService";
 import Team from "./team";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { getFormattedDateTime } from "../util/logger";
+import logger from "../util/logger";
+
+/**
+ * Game Class
+ *
+ * This class is responsible for managing game-related operations, including create/delete/edit/get games.
+ * It uses Prisma to interact with the database and maintain game data.
+ *
+ * @class Game
+ */
 class Game {
   private prisma: typeof prismaService;
 
@@ -56,7 +67,7 @@ class Game {
 
       return { status: 201, message: "Game created!", game_id: game.id };
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Game not created!" };
     }
   }
@@ -114,7 +125,7 @@ class Game {
 
       return { status: 200, message: "Game edited!", game: game.id };
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Game not edited!" };
     }
   }
@@ -129,7 +140,7 @@ class Game {
 
       return { status: 200, message: "Games found!", games: games };
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Games not found!" };
     }
   }
@@ -146,6 +157,7 @@ class Game {
 
       return { status: 200, message: "Game selected!", game: game };
     } catch (error) {
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Game not created!" };
     }
   }
@@ -162,10 +174,10 @@ class Game {
 
       return { status: 200, message: "Game deleted!", game: game.id };
     } catch (error) {
+      logger.error(getFormattedDateTime(), error);
       if (error instanceof PrismaClientKnownRequestError) {
         //Doc: https://www.prisma.io/docs/reference/api-reference/error-reference#error-codes
         if (error.code === "P2025") {
-          //Doc: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
           return {
             status: 409,
             message: "Game does not exist!",
@@ -262,7 +274,7 @@ class Game {
 
       return { status: 400, message: "Invalid parameters sended!" };
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Points not calculated!" };
     }
   }
@@ -449,7 +461,7 @@ class Game {
       }
       throw new Error("Internal error. Points not calculated!");
     } catch (error) {
-      console.log(error);
+      logger.error(getFormattedDateTime(), error);
       return { status: 500, message: "Internal error. Points not calculated!" };
     }
   }

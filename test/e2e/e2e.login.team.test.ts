@@ -8,8 +8,10 @@ let createdPlayerId: number | undefined = 0;
 let secondCreatedPlayerId: number | undefined = 0;
 let createdGameId: number | undefined = 0;
 
-const userEmailTest: string = "emailemailemail24@email.com.br";
+const userEmailTest: string = "emaildamaria@email.com.br";
 const userPassTest: string = "123456";
+
+// Os testes automatizados foram feitos com o Jest e o Supertest. E estão escritos em português pois não tem relação direta com o uso da api por um usuário final.
 
 describe('Rota *POST* "/user/create"', () => {
   it("Deve retornar um usuário", async () => {
@@ -43,7 +45,7 @@ describe('Rota *POST* "/team"', () => {
       .post("/team")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Amigos Futebol Clube",
+        name: "Futebol Clube dos amigos",
       });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("message");
@@ -58,7 +60,7 @@ describe('Rota *POST* "/team"', () => {
       .post("/team")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Vasco De La Gama",
+        name: "Atlético Mineiro",
       });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("message");
@@ -95,8 +97,8 @@ describe('Rota *POST* "/player/"', () => {
       .post("/player")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Fagner",
-        number: 24,
+        name: "Hulk",
+        number: 5,
         teamId: createdTeamId,
       });
     expect(response.status).toBe(201);
@@ -113,7 +115,7 @@ describe('Rota *POST* "/player/"', () => {
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
         name: "Neymar",
-        number: 9,
+        number: 11,
         teamId: secondCreatedTeamId,
       });
     expect(response.status).toBe(201);
@@ -129,8 +131,8 @@ describe('Rota *PUT* "/player/:id"', () => {
       .put(`/player/${secondCreatedPlayerId}`)
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Roberto Dinamite",
-        number: 9,
+        name: "Roberto Carlos",
+        number: 4,
         teamId: createdTeamId,
       });
     expect(response.status).toBe(200);
@@ -156,7 +158,7 @@ describe('Rota *PUT* "/team/:id"', () => {
       .put(`/team/${secondCreatedTeamId}`)
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        name: "Vasco da Gama Alterado",
+        name: "Atlético Mineiro Alterado",
       });
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("message");

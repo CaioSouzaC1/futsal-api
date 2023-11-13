@@ -2,17 +2,28 @@
 	"info": {
 		"_postman_id": "8f11ffde-982b-4d98-86fa-89b79cef5ab7",
 		"name": "Futsal-APi",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31125332"
 	},
 	"item": [
 		{
 			"name": "Create User",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESSTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Carlos\",\n    \"email\": \"email20@email.com.br\",\n    \"password\": \"123456\"\n}",
+					"raw": "{\n    \"name\": \"Carlos\",\n    \"email\": \"carlosemail@email.com.br\",\n    \"password\": \"123456\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -37,11 +48,21 @@
 		{
 			"name": "Login User",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESSTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"email20@email.com.br\",\n    \"password\": \"123456\"\n}",
+					"raw": "{\n    \"email\": \"carlosemail@email.com.br\",\n    \"password\": \"123456\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -71,7 +92,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{access_token}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
@@ -100,7 +121,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{access_token}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
@@ -116,7 +137,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\" : \"Unidos do atlanta\"\n}",
+					"raw": "{\n    \"name\" : \"Unidos do vila\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -145,7 +166,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{access_token}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
@@ -153,7 +174,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/team/33",
+					"raw": "http://localhost:3000/team/61",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -161,7 +182,7 @@
 					"port": "3000",
 					"path": [
 						"team",
-						"33"
+						"61"
 					]
 				}
 			},
@@ -175,7 +196,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{access_token}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
@@ -184,7 +205,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Unidos do ana rosa alterado\"\n}",
+					"raw": "{\n    \"name\": \"Unidos da vila alterado\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -192,7 +213,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/team/33",
+					"raw": "http://localhost:3000/team/61",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -200,7 +221,7 @@
 					"port": "3000",
 					"path": [
 						"team",
-						"33"
+						"61"
 					]
 				}
 			},
@@ -214,7 +235,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{access_token}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
@@ -222,7 +243,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/team/33",
+					"raw": "http://localhost:3000/team/61",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -230,7 +251,7 @@
 					"port": "3000",
 					"path": [
 						"team",
-						"33"
+						"61"
 					]
 				}
 			},
@@ -239,8 +260,30 @@
 		{
 			"name": "Get Players",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Futsal Api Access Token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/player/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"player",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -252,7 +295,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{access_token}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
@@ -261,7 +304,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Jair\",\n    \"number\":10,\n    \"teamId\":\"34\" \n}",
+					"raw": "{\n    \"name\": \"Lionel Messi\",\n    \"number\":10,\n    \"teamId\":58 \n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -284,36 +327,6 @@
 			"response": []
 		},
 		{
-			"name": "Delete Player",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{access_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/player/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"player",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Edit Player",
 			"request": {
 				"auth": {
@@ -321,7 +334,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYzLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNjk5Nzk5NjM1LCJleHAiOjE2OTk4MDE0MzV9.D5NhkpHnE21ktxy5QpHrBK33jcR12rQJRl1TqLRCt-Y",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
@@ -330,7 +343,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"Roberto Dinamite\",\n    \"number\": 9,\n    \"teamId\": 35\n}",
+					"raw": "{\n    \"name\":\"Cristiano Ronaldo Junior\",\n    \"number\": 9,\n    \"teamId\": 58\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -338,7 +351,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/player/4",
+					"raw": "http://localhost:3000/player/23",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -346,7 +359,37 @@
 					"port": "3000",
 					"path": [
 						"player",
-						"4"
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Player",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Futsal Api Access Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/player/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"player",
+						"23"
 					]
 				}
 			},
@@ -355,29 +398,21 @@
 		{
 			"name": "Create Game",
 			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Edit Game",
-			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{ACCESSTOKEN}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
 				},
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"date\": \"2021-10-18\",\n    \"homeTeamId\": 50,\n    \"visitorTeamId\": 51,\n    \"start\": \"12:00\",\n    \"end\": \"13:00\",\n    \"homeTeamGoals\": 2,\n    \"visitorTeamGoals\": 1\n}",
+					"raw": "{\n    \"date\": \"2021-10-12\",\n    \"homeTeamId\": 58,\n    \"visitorTeamId\": 59,\n    \"start\": \"11:00\",\n    \"end\": \"11:45\",\n    \"homeTeamGoals\": 2,\n    \"visitorTeamGoals\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -399,22 +434,31 @@
 			"response": []
 		},
 		{
-			"name": "Delete Game",
+			"name": "Edit Game",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{ACCESSTOKEN}}",
+							"value": "{{Futsal Api Access Token}}",
 							"type": "string"
 						}
 					]
 				},
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2021-10-12\",\n    \"homeTeamId\": 58,\n    \"visitorTeamId\": 59,\n    \"start\": \"10:00\",\n    \"end\": \"11:00\",\n    \"homeTeamGoals\": 2,\n    \"visitorTeamGoals\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:3000/game/15",
+					"raw": "http://localhost:3000/game/26",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -422,7 +466,37 @@
 					"port": "3000",
 					"path": [
 						"game",
-						"15"
+						"26"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Futsal Api Access Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/game/26",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"game",
+						"26"
 					]
 				}
 			},
@@ -431,16 +505,60 @@
 		{
 			"name": "Get Games",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Futsal Api Access Token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/game/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"game",
+						""
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Get game by id",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Futsal Api Access Token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/game/27",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"game",
+						"27"
+					]
+				}
 			},
 			"response": []
 		}
